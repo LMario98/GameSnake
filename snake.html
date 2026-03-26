@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="game-container">
+
+    <div id="header">
+      <div class="stat">
+        <span class="stat-label">Punteggio</span>
+        <span class="stat-value" id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Record</span>
+        <span class="stat-value" id="best">0</span>
+      </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <div id="message">Premi Inizia per giocare</div>
+
+    <button id="btn-start" type="button">Inizia</button>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
