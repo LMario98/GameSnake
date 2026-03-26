@@ -62,7 +62,7 @@ snake = [
 
 
 
-// --- Piazza il cibo in una posizione casuale ---
+//  Piazza il cibo in una posizione casuale 
 function placeFood() {
 
   // Variabile temporanea per la posizione
@@ -80,22 +80,67 @@ function placeFood() {
   food = pos;
 }
 
-// --- Aggiorna i valori nell'header ---
+//  Aggiorna i valori nell'header 
 function updateUI() {
   document.getElementById('score').textContent = score;
   document.getElementById('best').textContent = best;
 }
 
 
+// --- Tick: il cuore del gioco, chiamato ogni 150ms ---
 function tick() {
+
+  // Aggiorna la direzione corrente
+  dir = nextDir;
+
+  // Calcola la nuova posizione della testa
+  const newHead = {
+    x: snake[0].x + dir.x,
+    y: snake[0].y + dir.y,
+  };
+
+  // Controlla se la testa esce dai bordi
+  const fuoriDalBordo =
+    newHead.x < 0 ||
+    newHead.x >= cols ||
+    newHead.y < 0 ||
+    newHead.y >= rows;
+
+  // Controlla se la testa colpisce il corpo
+  const colpisceCorpo = snake.some(seg => seg.x === newHead.x && seg.y === newHead.y);
+
+  // Se c'è una collisione, game over
+  if (fuoriDalBordo || colpisceCorpo) {
+    gameOver();
+    return;
+  }
+
+  // Aggiunge la nuova testa all'inizio dell'array
+  snake.unshift(newHead);
+
+  // Controlla se il serpente mangia il cibo
+  if (newHead.x === food.x && newHead.y === food.y) {
+    score++;
+    if (score > best) {
+      best = score;
+      localStorage.setItem('snakeBest', best);
+    }
+    updateUI();
+    placeFood();
+  } else {
+    // Rimuove la coda solo se non ha mangiato
+    snake.pop();
+  }
+
+  // Ridisegna tutto
   draw();
 }
 
-// --- Collega il bottone Start alla funzione init ---
+// Collega il bottone Start alla funzione init 
 document.getElementById('btn-start').addEventListener('click', init);
 
 
-// --- Disegna tutto sul canvas ---
+// Disegna tutto sul canvas 
 function draw() {
 
   // Pulisce il canvas con il colore di sfondo
@@ -132,4 +177,12 @@ function draw() {
     Math.PI * 2
   );
   ctx.fill();
+}
+
+// Game Over 
+function gameOver() {
+  clearInterval(loop);
+  running = false;
+  document.getElementById('message').textContent = `Game over! Punteggio: ${score}`;
+  document.getElementById('btn-start').textContent = 'Gioca ancora';
 }
