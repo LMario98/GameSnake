@@ -186,3 +186,37 @@ function gameOver() {
   document.getElementById('message').textContent = `Game over! Punteggio: ${score}`;
   document.getElementById('btn-start').textContent = 'Gioca ancora';
 }
+
+//  Ascolta i tasti premuti dalla tastiera 
+document.addEventListener('keydown', function(e) {
+
+  // Freccia su o W — vai su
+  if (e.key === 'ArrowUp' || e.key === 'w') {
+    // Impedisce di andare nella direzione opposta
+    if (dir.y !== 1) {
+      nextDir = { x: 0, y: -1 };
+    }
+  }
+
+  // Freccia giù o S — vai giù
+  if (e.key === 'ArrowDown' || e.key === 's') {
+    if (dir.y !== -1) {
+      nextDir = { x: 0, y: 1 };
+    }
+  }
+
+  // Freccia sinistra o A — vai a sinistra
+  if (e.key === 'ArrowLeft' || e.key === 'a') {
+    if (dir.x !== 1) {
+      nextDir = { x: -1, y: 0 };
+    }
+  }
+
+  // Freccia destra o D — vai a destra
+  if (e.key === 'ArrowRight' || e.key === 'd') {
+    if (dir.x !== -1) {
+      nextDir = { x: 1, y: 0 };
+    }
+  }
+
+});
