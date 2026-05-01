@@ -88,3 +88,25 @@ body {
   color: #0d1117;
 }
 
+/* --- Tablet (max 600px) --- */
+@media (max-width: 600px) {
+
+  #game-container {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 6px 16px;
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  #btn-start {
+    padding: 8px 24px;
+    font-size: 14px;
+  }
+}

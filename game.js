@@ -7,9 +7,14 @@ console.log(ctx);
 
 // creare una dimensione della griglia per lo snake
 
-const cols = 30;
-const rows = 30;
-const cell = 30;
+// Dopo — dimensioni dinamiche in base allo schermo
+const maxSize = Math.min(window.innerWidth - 48, window.innerHeight - 200, 540);
+const cols = 20;
+const rows = 20;
+const cell = Math.floor(maxSize / cols);
+
+canvas.width = cols * cell;
+canvas.height = rows * cell;
 // Imposta le dimensioni reali del canvas
 canvas.width = cols * cell;
 canvas.height = rows * cell;
