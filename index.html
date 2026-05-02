@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snake Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div id="game-container">
@@ -26,9 +28,24 @@
     <div id="message">Premi Inizia per giocare</div>
 
     <button id="btn-start" type="button">Inizia</button>
+    <!-- Controlli touch per mobile -->
+    <div id="dpad">
+      <div class="dpad-empty"></div>
+      <button type="button" class="dpad-btn" id="dpad-up">▲</button>
+      <div class="dpad-empty"></div>
+
+      <button type="button"  class="dpad-btn" id="dpad-left">◀</button>
+      <div class="dpad-empty"></div>
+      <button type="button" class="dpad-btn" id="dpad-right">▶</button>
+
+      <div class="dpad-empty"></div>
+      <button type="button" class="dpad-btn" id="dpad-down">▼</button>
+      <div class="dpad-empty"></div>
+    </div>
 
   </div>
 
   <script src="game.js"></script>
 </body>
+
 </html>

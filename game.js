@@ -225,3 +225,52 @@ document.addEventListener('keydown', function(e) {
   }
 
 });
+
+// --- Controlli D-pad ---
+document.getElementById('dpad-up').addEventListener('click', () => {
+  if (dir.y !== 1) nextDir = { x: 0, y: -1 };
+});
+document.getElementById('dpad-down').addEventListener('click', () => {
+  if (dir.y !== -1) nextDir = { x: 0, y: 1 };
+});
+document.getElementById('dpad-left').addEventListener('click', () => {
+  if (dir.x !== 1) nextDir = { x: -1, y: 0 };
+});
+document.getElementById('dpad-right').addEventListener('click', () => {
+  if (dir.x !== -1) nextDir = { x: 1, y: 0 };
+});
+
+// --- Controlli Swipe ---
+let touchStartX = null;
+let touchStartY = null;
+
+canvas.addEventListener('touchstart', function(e) {
+  // Salva la posizione iniziale del tocco
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  e.preventDefault();
+}, { passive: false });
+
+canvas.addEventListener('touchend', function(e) {
+  if (touchStartX === null) return;
+
+  // Calcola la differenza tra inizio e fine del tocco
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+
+  // Determina se lo swipe è orizzontale o verticale
+  if (Math.abs(dx) > Math.abs(dy)) {
+    // Swipe orizzontale
+    if (dx > 0 && dir.x !== -1) nextDir = { x: 1, y: 0 };  // destra
+    if (dx < 0 && dir.x !== 1)  nextDir = { x: -1, y: 0 }; // sinistra
+  } else {
+    // Swipe verticale
+    if (dy > 0 && dir.y !== -1) nextDir = { x: 0, y: 1 };  // giù
+    if (dy < 0 && dir.y !== 1)  nextDir = { x: 0, y: -1 }; // su
+  }
+
+  // Resetta le coordinate
+  touchStartX = null;
+  touchStartY = null;
+  e.preventDefault();
+}, { passive: false });
